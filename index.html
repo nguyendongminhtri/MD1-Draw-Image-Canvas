@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<img src="image/kieu_anh.jpg" height="719" width="720"/>-->
+<canvas id="myCanvas" width="800" height="500" style="border: 1px solid blue"></canvas>
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const image = new Image(60, 45); // Using optional size for image
+    image.onload = drawImageActualSize; // Draw when image has loaded
+
+    // Load an image of intrinsic size 300x227 in CSS pixels
+    image.src = 'image/kieu_anh.jpg';
+
+    function drawImageActualSize() {
+        // Use the intrinsic size of image in CSS pixels for the canvas element
+        canvas.width = this.naturalWidth;
+        console.log('this.naturalWidth == ', this.naturalWidth)
+        canvas.height = this.naturalHeight;
+
+        // Will draw the image as 300x227, ignoring the custom size of 60x45
+        // given in the constructor
+        ctx.drawImage(this, 0, 0, 300, 300);
+
+        // To use the custom size we'll have to specify the scale parameters
+        // using the element's width and height properties - lets draw one
+        // on top in the corner:
+        // ctx.drawImage(this, 0, 0, this.width, this.height);
+    }
+</script>
+</body>
+</html>
